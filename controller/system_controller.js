@@ -7,14 +7,13 @@ async function  welcome(req, res) {
 }
 
 async function getCustomer(req, res) {
-     const result = await systemModel.getCustomer(req,res);
+    await systemModel.getCustomer(req, res);
         
 }
 
-function getAllProduct(req, res) {
-    res.send('get all product');
+async function getAllProduct(req, res) {
+    await systemModel.getAllProduct(req, res);
 }
-
 
 module.exports = {
     welcome,
