@@ -1,7 +1,22 @@
-const express = require('express');
-const router = express.Router();
-const user = require('../model/user_Model');
+const db = require("../mysql.js");
 
-router.post('/login', (request, response) => {
-    
-})
+const login = (...param) => {
+  
+  return new Promise((resolve, reject) => {
+    db.query(
+      "SELECT *  FROM `customer-Identification` WHERE email = ? AND password = ?",
+      [...param],
+      (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      }
+    );
+  });
+};
+
+module.exports = {
+  login,
+};
