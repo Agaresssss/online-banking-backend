@@ -1,7 +1,14 @@
 const walletModel = require("../model/wallet_Model.js");
 
 async function index(req, res) {
-  res.send("wallet router");
+    res.send("wallet router");
+}
+
+async function balance(req, res) {
+    const citizenId = req.body.citizenId
+    await walletModel.wallet(citizenId).then((result) => {
+        res.send(result);
+    })
 }
 
 async function updateBalance(req, res) {
@@ -18,14 +25,22 @@ async function updateCurrencyBalance(req, res) {
     })
 }
 
+async function currencyBalance(req, res) {
+    const citizenId = req.body.citizenId
+    await walletModel.currencyBalance(citizenId).then((result) => {
+        res.send(result);
+    })
+}
 
 
 
 
 module.exports = {
     index,
+    balance,
     updateBalance,
-    updateCurrencyBalance
+    updateCurrencyBalance,
+    currencyBalance
 }
 
 
@@ -55,3 +70,32 @@ module.exports = {
 //         }
 //     })
 // })
+
+
+//     app.post('/wallet',(req,res)=>{
+
+//         const citizenId = req.body.citizenId
+                    
+//         db.query("SELECT b.`accountNum`,b.`balance`FROM`customer-Identification`c,`book-Account` b WHERE c.citizenId = b.citizenId  AND c.citizenId = ?",
+//         [citizenId],(err,result)=>{
+//                 if(err){
+//                 console.log(err)
+//                 }else {
+//                 res.send(result)
+//                 }
+//             })
+//         })
+
+
+// app.post('/customer/currency/balance',(req,res)=>{
+    
+	
+//     const citizenId = req.body.citizenId
+//         db.query("SELECT * FROM `customer's-Foreign-Currencies` WHERE citizenId = ?",[citizenId],(err,result)=>{
+//             if(err){
+//             console.log(err)    
+//             }else {
+//             res.send(result)
+//             }
+//         })
+//     })

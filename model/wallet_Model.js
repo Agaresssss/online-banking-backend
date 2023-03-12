@@ -1,5 +1,21 @@
 const db = require("../mysql.js");
 
+const balance = (...param) => {
+  return new Promise((resolve, reject) => {
+    db.query(
+      "SELECT b.`accountNum`,b.`balance`FROM`customer-Identification`c,`book-Account` b WHERE c.citizenId = b.citizenId  AND c.citizenId = ?",
+      [...param],
+      (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      }
+    );
+  });
+};
+
 const updateBalance = (...param) => {
   return new Promise((resolve, reject) => {
     db.query(
@@ -18,20 +34,35 @@ const updateBalance = (...param) => {
 
 const updateCurrencyBalance = (...param) => {
   return new Promise((resolve, reject) => {
-       db.query("UPDATE `customer's-foreign-currencies` SET balanceCurrency = ? WHERE citizenId = ? AND currencyId = ? ",
-       [...param],(err,result)=>{
+    db.query(
+      "UPDATE `customer's-foreign-currencies` SET balanceCurrency = ? WHERE citizenId = ? AND currencyId = ? ",
+      [...param],
+      (err, result) => {
         if (err) {
-            reject(err);
-          } else {
-            resolve(result);
-          }
-    })
-    
-  })
-       
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      }
+    );
+  });
 };
 
+const currencyBalance = (...param) => {
+    return new Promise((resolve, reject) => {
+                db.query("SELECT * FROM `customer's-Foreign-Currencies` WHERE citizenId = ?",[...param],(err,result)=>{
+                    if (err) {
+                        reject(err);
+                      } else {
+                        resolve(result);
+                      }
+        })
+    })
+}
+
 module.exports = {
+  balance,
   updateBalance,
   updateCurrencyBalance,
+  currencyBalance
 };
