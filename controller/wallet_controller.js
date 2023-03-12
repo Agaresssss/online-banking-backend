@@ -32,7 +32,19 @@ async function currencyBalance(req, res) {
     })
 }
 
+async function createTransactionCurrency(req, res) {
+    const {citizenId,currencyId,balanceCurrency} = req.body;
+    await walletModel.createTransactionCurrency(citizenId,currencyId,balanceCurrency).then((result) => {
+        res.send(result);
+    })
+}
 
+async function createforeignCurrency(req, res) {
+    const {citizenId,fromCurrency,toCurrency,value,note,rate,fee} = req.body;
+    await walletModel.createforeignCurrency(citizenId,fromCurrency,toCurrency,value,note,rate,fee).then((result) => {
+        res.send(result);
+    })
+}
 
 
 module.exports = {
@@ -40,7 +52,9 @@ module.exports = {
     balance,
     updateBalance,
     updateCurrencyBalance,
-    currencyBalance
+    currencyBalance,
+    createTransactionCurrency,
+    createforeignCurrency
 }
 
 

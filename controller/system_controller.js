@@ -3,7 +3,7 @@ const systemModel = require('../model/system_model.js')
 
 
 async function  welcome(req, res) {
-    res.send('Welcome to the login server');
+    res.send('system router');
 }
 
 async function getCustomer(req, res) {
@@ -89,6 +89,13 @@ async function userIncomeSpend (req,res) {
     })
 }
 
+async function createProduct (req,res) {
+    const {subProductId,monthlyPay,productName} = req.body
+    await systemModel.createProduct(subProductId,monthlyPay,productName).then((result) => {
+        res.send(result);
+    })
+}
+
 
 module.exports = {
     welcome,
@@ -104,7 +111,8 @@ module.exports = {
     citizenSpend,
     creditCardSpend,
     totalBalanceCurrency,
-    userIncomeSpend
+    userIncomeSpend,
+    createProduct
 
 
 }
@@ -279,3 +287,23 @@ module.exports = {
 //     })
 // })
 
+//-----------------------------------------------
+
+
+
+
+// app.post('/create/product',(req,res)=>{
+    
+//     const subProductId = req.body.subProductId
+//     const monthlyPay = req.body.monthlyPay
+//     const productName = req.body.productName
+
+//     db.query("INSERT INTO `subscription-product`(subProductId,monthlyPay,productName) VALUES (?,?,?)",
+//     [subProductId,monthlyPay,productName],(err,result)=>{
+//         if(err){
+//             console.log(err)
+//         }else{
+//             res.send(result)
+//         }
+//     })
+// })

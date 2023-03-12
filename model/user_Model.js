@@ -64,9 +64,42 @@ const transactionSwap = (...param) => {
   });
 };
 
+const register = (...param) => {
+  return new Promise((resolve, reject) => {
+    db.query(
+      "INSERT INTO `customer-identification`(prefix,fName,lName,phoneNumber,gender,dob,citizenId,email,password,address,pin) VALUES(?,?,?,?,?,?,?,?,?,?,?)",
+      [...param],
+      (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      }
+    );
+  });
+};
+const createTransaction = (...param) => {
+  return new Promise((resolve, reject) => {
+    db.query(
+      "INSERT INTO `transaction`(fromAccount,toAccount,value,note,categoryId,transactionTypeId) VALUES (?,?,?,?,?,?)",
+      [...param],
+      (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      }
+    );
+  });
+};
+
 module.exports = {
   login,
   updateKYC,
   transactionAll,
   transactionSwap,
+  register,
+  createTransaction,
 };

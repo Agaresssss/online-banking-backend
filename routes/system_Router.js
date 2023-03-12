@@ -19,8 +19,9 @@ router.post('/citizenspend',systemController.citizenSpend);
 router.get('/creditcardspend',systemController.creditCardSpend);
 router.get('/totalbalancecurrency',systemController.totalBalanceCurrency);
 router.get('/userincomespend',systemController.userIncomeSpend);
-
-
+router.post('/create/product',systemController.createProduct);
 
 
 module.exports = router;
+
+

@@ -32,12 +32,27 @@ async function transactionSwap(req, res) {
   })
 }
 
+async function register(req, res) {
+  const {prefix,fName,lName,phoneNumber,gender,dob,citizenId,email,password,address,pin} = req.body;
+  await userModel.register(prefix,fName,lName,phoneNumber,gender,dob,citizenId,email,password,address,pin).then((result) => {
+    res.send(result);
+  })
+}
+async function createTransaction(req, res) {
+  const {fromAccount,toAccount,value,note,categoryId,transactionTypeId} = req.body;
+  await userModel.createTransaction(fromAccount,toAccount,value,note,categoryId,transactionTypeId).then((result) => {
+    res.send(result);
+  })
+}
+
 module.exports = {
   index,
   login,
   updateKYC,
   transactionAll,
-  transactionSwap
+  transactionSwap,
+  register,
+  createTransaction
 };
 
 
@@ -82,3 +97,47 @@ module.exports = {
 //                 }
 //             })
 //         })
+
+
+
+
+// app.post('/register',(req,res)=>{
+//     const prefix = req.body.prefix;
+//     const fName = req.body.fName;
+//     const lName = req.body.lName;
+//     const phoneNumber = req.body.phoneNumber;
+//     const gender = req.body.gender;
+//     const dob = req.body.dob;
+//     const citizenId = req.body.citizenId;
+//     const email = req.body.email;
+//     const password = req.body.password;
+//     const address = req.body.address;
+//     const pin = req.body.pin;
+//     db.query("INSERT INTO `customer-identification`(prefix,fName,lName,phoneNumber,gender,dob,citizenId,email,password,address,pin) VALUES(?,?,?,?,?,?,?,?,?,?,?)",
+//     [prefix,fName,lName,phoneNumber,gender,dob,citizenId,email,password,address,pin],((err,result)=>{
+//         if(err){
+//             console.log(err);
+//         }else{
+//             res.send("Value inserted")
+//         }
+//     }));
+// })
+
+// app.post('/create/transaction',(req,res)=>{
+    
+//     const fromAccount = req.body.fromAccount
+//     const toAccount = req.body.toAccount
+//     const value = req.body.value
+//     const note = req.body.note
+//     const categoryId = req.body.categoryId
+//     const transactionTypeId = req.body.transactionTypeId
+
+//     db.query("INSERT INTO `transaction`(fromAccount,toAccount,value,note,categoryId,transactionTypeId) VALUES (?,?,?,?,?,?)",
+//     [fromAccount,toAccount,value,note,categoryId,transactionTypeId],(err,result)=>{
+//         if(err){
+//             console.log(err)
+//         }else{
+//             res.send(result)
+//         }
+//     })
+// })

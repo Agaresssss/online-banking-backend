@@ -15,7 +15,7 @@ router.use('/card', card);
 router.use('/system', system);
 
 router.get('/', (req, res,next) => {
-    const welcome= "<h2>This is API for Online Banking System.</h2><p> follow MVC pattern.</p><p> edit by Phuettipol <b>11/03/2023</b></p>"
+    const welcome= "<h2>This is API for Online Banking System.</h2><p> follow 3 layer architecture.</p><p> edit by Phuettipol <b>11/03/2023</b></p>"
     //     res.send(welcome)
     res.send(welcome);
     next((err)=>{

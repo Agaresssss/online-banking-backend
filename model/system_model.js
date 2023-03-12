@@ -190,6 +190,19 @@ const userIncomeSpend = (...param) => {
   });
 };
 
+const createProduct = (...param) => {
+  return new Promise((resolve, reject) => {
+        db.query("INSERT INTO `subscription-product`(subProductId,monthlyPay,productName) VALUES (?,?,?)",
+    [...param],(err,result)=>{
+      if (err) {
+        reject(err);
+      } else {
+        resolve(result);
+      }
+    })
+  })
+}
+
 module.exports = {
   getCustomer,
   getAllProduct,
@@ -204,4 +217,5 @@ module.exports = {
   creditCardSpend,
   totalBalanceCurrency,
   userIncomeSpend,
+  createProduct
 };
